@@ -21,8 +21,6 @@ public class Book {
     public Book() {
     }
     
-    
-    
 
     public Book(String title, int bookId, String authorName, int isbn, int publicationYear, int price, int stockQuantity) {
         this.title = title;
@@ -33,6 +31,36 @@ public class Book {
         this.price = price;
         this.stockQuantity = stockQuantity;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public int getIsbn() {
+        return isbn;
+    }
+
+    public int getPublicationYear() {
+        return publicationYear;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getStockQuantity() {
+        return stockQuantity;
+    }
+    
+    
     
     
     
