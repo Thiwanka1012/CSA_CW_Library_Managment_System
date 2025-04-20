@@ -34,6 +34,18 @@ public class Customer {
     public int getPassword() {
         return password;
     }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public void setEmailAddress(int emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public void setPassword(int password) {
+        this.password = password;
+    }
     
     
     
