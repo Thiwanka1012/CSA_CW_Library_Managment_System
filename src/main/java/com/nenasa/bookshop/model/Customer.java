@@ -22,6 +22,18 @@ public class Customer {
         this.emailAddress = emailAddress;
         this.password = password;
     }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public int getEmailAddress() {
+        return emailAddress;
+    }
+
+    public int getPassword() {
+        return password;
+    }
     
     
     
