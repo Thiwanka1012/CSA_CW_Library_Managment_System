@@ -16,6 +16,12 @@ public class Customer {
 
     public Customer() {
     }
+
+    public Customer(String customerName, int emailAddress, int password) {
+        this.customerName = customerName;
+        this.emailAddress = emailAddress;
+        this.password = password;
+    }
     
     
     
