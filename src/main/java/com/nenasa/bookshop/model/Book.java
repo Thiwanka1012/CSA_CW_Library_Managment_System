@@ -8,6 +8,8 @@ package com.nenasa.bookshop.model;
  *
  * @author Thiwanka-Gaming
  */
+
+//Attributes of Book
 public class Book {
     
     private String title;
@@ -18,10 +20,13 @@ public class Book {
     private int price;
     private int stockQuantity;
 
+    
+    //Non parameterized Constructor
     public Book() {
     }
     
 
+    //Parameterized Constructor
     public Book(String title, int bookId, String authorName, int isbn, int publicationYear, int price, int stockQuantity) {
         this.title = title;
         this.bookId = bookId;
@@ -32,6 +37,7 @@ public class Book {
         this.stockQuantity = stockQuantity;
     }
 
+    //Getter Methods
     public String getTitle() {
         return title;
     }
@@ -60,6 +66,8 @@ public class Book {
         return stockQuantity;
     }
 
+    
+    //Setter Methods
     public void setTitle(String title) {
         this.title = title;
     }
