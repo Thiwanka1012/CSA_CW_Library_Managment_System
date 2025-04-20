@@ -46,6 +46,11 @@ public class Customer {
     public void setPassword(int password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" + "customerName=" + customerName + ", emailAddress=" + emailAddress + ", password=" + password + '}';
+    }
     
     
     
