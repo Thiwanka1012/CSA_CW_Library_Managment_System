@@ -13,11 +13,27 @@ import java.util.Map;
  * @author Thiwanka-Gaming
  */
 public class Order {
+    
+    
     private int orderId;
     private int customerId;
     private Map<Integer,Integer> items;
     private double totalPrice;
     private LocalDateTime orderDate;
+
+    public Order() {
+    }
+
+    public Order(int orderId, int customerId, Map<Integer, Integer> items, double totalPrice, LocalDateTime orderDate) {
+        this.orderId = orderId;
+        this.customerId = customerId;
+        this.items = items;
+        this.totalPrice = totalPrice;
+        this.orderDate = orderDate;
+    }
+    
+    
+    
     
     
     
