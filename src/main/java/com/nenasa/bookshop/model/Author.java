@@ -8,21 +8,27 @@ package com.nenasa.bookshop.model;
  *
  * @author Thiwanka-Gaming
  */
+
+//Add other Attributes
 public class Author {
     
     private int authorId;
     private String authorName;
     private String biography;
 
+    
+    //Non parameterized constructor
     public Author() {
     }
 
+    //Parameterized Constructor
     public Author(int authorId, String authorName, String biography) {
         this.authorId = authorId;
         this.authorName = authorName;
         this.biography = biography;
     }
 
+    //Getter methods
     public int getAuthorId() {
         return authorId;
     }
@@ -34,7 +40,9 @@ public class Author {
     public String getBiography() {
         return biography;
     }
-
+    
+    
+    //Setter Methods
     public void setAuthorId(int authorId) {
         this.authorId = authorId;
     }
@@ -47,6 +55,7 @@ public class Author {
         this.biography = biography;
     }
 
+    //To string method
     @Override
     public String toString() {
         return "Author{" + "authorId=" + authorId + ", authorName=" + authorName + ", biography=" + biography + '}';
