@@ -22,6 +22,18 @@ public class Author {
         this.authorName = authorName;
         this.biography = biography;
     }
+
+    public int getAuthorId() {
+        return authorId;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public String getBiography() {
+        return biography;
+    }
     
     
     
