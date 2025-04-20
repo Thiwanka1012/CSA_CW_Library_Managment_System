@@ -4,6 +4,8 @@
  */
 package com.nenasa.bookstoremodel;
 
+
+
 /**
  *
  * @author Thiwanka-Gaming
@@ -13,7 +15,7 @@ public class Customer {
     //Attributes of Customer class
     private int customerId;
     private String customerName;
-    private int emailAddress;
+    private String emailAddress;
     private int password;
 
     //Non parameterized constructor
@@ -21,7 +23,7 @@ public class Customer {
     }
 
     //Parameterized Constructor
-    public Customer(int customerId,String customerName, int emailAddress, int password) {
+    public Customer(int customerId,String customerName, String emailAddress, int password) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.emailAddress = emailAddress;
@@ -39,7 +41,7 @@ public class Customer {
         return customerName;
     }
 
-    public int getEmailAddress() {
+    public String getEmailAddress() {
         return emailAddress;
     }
 
@@ -59,7 +61,7 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public void setEmailAddress(int emailAddress) {
+    public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
