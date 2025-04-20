@@ -17,4 +17,20 @@ public class Book {
     private int publicationYear;
     private int price;
     private int stockQuantity;
+
+    public Book(String title, int bookId, String authorName, int isbn, int publicationYear, int price, int stockQuantity) {
+        this.title = title;
+        this.bookId = bookId;
+        this.authorName = authorName;
+        this.isbn = isbn;
+        this.publicationYear = publicationYear;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+    
+    
+    
 }
+
+
+
