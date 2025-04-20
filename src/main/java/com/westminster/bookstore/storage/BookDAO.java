@@ -9,8 +9,8 @@ public class BookDAO {
 
     // Initialize with some sample data
     static {
-        books.add(new Book("The Lord of the Rings", 1, "J.R.R. Tolkien", 9780618053267, 1954, 20.99, 100));
-        books.add(new Book("Harry Potter and the Philosopher's Stone", 2, "J.K. Rowling", 9780747532699, 1997, 15.99, 50));
+        books.add(new Book("The Lord of the Rings", 1, "J.R.R. Tolkien", "9780618053267", 1954, 20.99, 100));
+        books.add(new Book("Harry Potter and the Philosopher's Stone", 2, "J.K. Rowling", "9780747532699", 1997, 15.99, 50));
     }
 
     // Get all books
