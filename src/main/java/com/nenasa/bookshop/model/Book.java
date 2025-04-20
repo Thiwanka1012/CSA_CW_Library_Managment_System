@@ -18,6 +18,12 @@ public class Book {
     private int price;
     private int stockQuantity;
 
+    public Book() {
+    }
+    
+    
+    
+
     public Book(String title, int bookId, String authorName, int isbn, int publicationYear, int price, int stockQuantity) {
         this.title = title;
         this.bookId = bookId;
