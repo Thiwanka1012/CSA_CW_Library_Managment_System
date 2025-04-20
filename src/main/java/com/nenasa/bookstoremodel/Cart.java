@@ -13,17 +13,21 @@ import java.util.Map;
  */
 public class Cart {
     
+    //Attributes
     private int customerId;
     private Map<Integer,Integer> item;
 
+    //Non parameterized constructor
     public Cart() {
     }
 
+    //Parameterized constructor
     public Cart(int customerId, Map<Integer, Integer> item) {
         this.customerId = customerId;
         this.item = item;
     }
 
+   //Getter methods
     public int getCustomerId() {
         return customerId;
     }
@@ -32,6 +36,7 @@ public class Cart {
         return item;
     }
 
+    //Setter methods
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
