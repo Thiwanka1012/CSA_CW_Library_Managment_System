@@ -95,6 +95,11 @@ public class Book {
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" + "title=" + title + ", bookId=" + bookId + ", authorName=" + authorName + ", isbn=" + isbn + ", publicationYear=" + publicationYear + ", price=" + price + ", stockQuantity=" + stockQuantity + '}';
+    }
     
     
     
