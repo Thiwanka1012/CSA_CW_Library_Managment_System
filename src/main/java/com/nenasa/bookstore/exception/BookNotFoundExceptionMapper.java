@@ -8,6 +8,6 @@ package com.nenasa.bookstore.exception;
  *
  * @author Thiwanka-Gaming
  */
-public class BookNotFoundException {
+public class BookNotFoundExceptionMapper {
     
 }
