@@ -10,4 +10,11 @@ package com.nenasa.bookshop.model;
  */
 public class Book {
     
+    private String title;
+    private int bookId;
+    private String authorName;
+    private int isbn;
+    private int publicationYear;
+    private int price;
+    private int stockQuantity;
 }
