@@ -34,6 +34,20 @@ public class Author {
     public String getBiography() {
         return biography;
     }
+
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
+    }
+    
+    
     
     
     
