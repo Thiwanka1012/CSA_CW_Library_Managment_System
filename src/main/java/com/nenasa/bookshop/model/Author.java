@@ -13,6 +13,11 @@ public class Author {
     private int authorId;
     private String authorName;
     private String biography;
+
+    public Author() {
+    }
+    
+    
     
     
 }
