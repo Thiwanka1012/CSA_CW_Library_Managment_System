@@ -11,6 +11,7 @@ package com.nenasa.bookshop.model;
 public class Customer {
     
     //Attributes of Customer class
+    private int customerId;
     private String customerName;
     private int emailAddress;
     private int password;
@@ -20,7 +21,8 @@ public class Customer {
     }
 
     //Parameterized Constructor
-    public Customer(String customerName, int emailAddress, int password) {
+    public Customer(int customerId,String customerName, int emailAddress, int password) {
+        this.customerId = customerId;
         this.customerName = customerName;
         this.emailAddress = emailAddress;
         this.password = password;
@@ -28,6 +30,11 @@ public class Customer {
 
     
     //Getter methods
+
+    public int getCustomerId() {
+        return customerId;
+    }
+    
     public String getCustomerName() {
         return customerName;
     }
@@ -42,6 +49,12 @@ public class Customer {
     
     
     //Setter Methods
+    
+    
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
