@@ -17,7 +17,7 @@ public class Book {
     private String authorName;
     private int isbn;
     private int publicationYear;
-    private int price;
+    private double price;
     private int stockQuantity;
 
     
@@ -27,7 +27,7 @@ public class Book {
     
 
     //Parameterized Constructor
-    public Book(String title, int bookId, String authorName, int isbn, int publicationYear, int price, int stockQuantity) {
+    public Book(String title, int bookId, String authorName, int isbn, int publicationYear, double price, int stockQuantity) {
         this.title = title;
         this.bookId = bookId;
         this.authorName = authorName;
@@ -58,7 +58,7 @@ public class Book {
         return publicationYear;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
