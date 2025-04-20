@@ -15,7 +15,7 @@ public class Book {
     private String title;
     private int bookId;
     private String authorName;
-    private int isbn;
+    private String isbn;
     private int publicationYear;
     private double price;
     private int stockQuantity;
@@ -27,7 +27,7 @@ public class Book {
     
 
     //Parameterized Constructor
-    public Book(String title, int bookId, String authorName, int isbn, int publicationYear, double price, int stockQuantity) {
+    public Book(String title, int bookId, String authorName, String isbn, int publicationYear, double price, int stockQuantity) {
         this.title = title;
         this.bookId = bookId;
         this.authorName = authorName;
@@ -50,7 +50,7 @@ public class Book {
         return authorName;
     }
 
-    public int getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
@@ -80,7 +80,7 @@ public class Book {
         this.authorName = authorName;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
@@ -88,7 +88,7 @@ public class Book {
         this.publicationYear = publicationYear;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
