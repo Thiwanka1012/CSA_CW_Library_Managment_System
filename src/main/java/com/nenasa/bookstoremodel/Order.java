@@ -31,6 +31,54 @@ public class Order {
         this.totalPrice = totalPrice;
         this.orderDate = orderDate;
     }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public Map<Integer, Integer> getItems() {
+        return items;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public LocalDateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public void setItems(Map<Integer, Integer> items) {
+        this.items = items;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" + "orderId=" + orderId + ", customerId=" + customerId + ", items=" + items + ", totalPrice=" + totalPrice + ", orderDate=" + orderDate + '}';
+    }
+    
+    
+    
     
     
     
