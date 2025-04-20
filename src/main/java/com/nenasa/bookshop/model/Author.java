@@ -10,4 +10,9 @@ package com.nenasa.bookshop.model;
  */
 public class Author {
     
+    private int authorId;
+    private String authorName;
+    private String biography;
+    
+    
 }
