@@ -8,6 +8,9 @@ package com.westminster.bookstore.resources;
  *
  * @author Thiwanka-Gaming
  */
-public class CustomerResources {
+public class InvalidInputException extends Exception {
+
+    public InvalidInputException(String book_title_cannot_be_empty) {
+    }
     
 }
