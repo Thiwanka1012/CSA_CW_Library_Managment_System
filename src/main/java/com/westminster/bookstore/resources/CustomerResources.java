@@ -13,37 +13,32 @@ import java.util.List;
 public class CustomerResources {
     private CustomerDAO customerDAO = new CustomerDAO();
 
-    // Create a new customer
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createCustomer(Customer customer) {
-        // Validate input
-        if (customer.getCustomerName() == null || customer.getCustomerName().isEmpty()) {
-            throw new InvalidInputException("Customer name cannot be empty");
+        if (customer.getFirstName() == null || customer.getFirstName().isEmpty()) {
+            throw new InvalidInputException("First name cannot be empty");
+        }
+        if (customer.getLastName() == null || customer.getLastName().isEmpty()) {
+            throw new InvalidInputException("Last name cannot be empty");
         }
         if (customer.getEmailAddress() == null || customer.getEmailAddress().isEmpty()) {
             throw new InvalidInputException("Email address cannot be empty");
         }
-        if (!isValidEmail(customer.getEmailAddress())) {
-            throw new InvalidInputException("Invalid email address format");
+        if (customer.getPassword() == null || customer.getPassword().isEmpty()) {
+            throw new InvalidInputException("Password cannot be empty");
         }
-        if (customer.getPassword() <= 0) {
-            throw new InvalidInputException("Password must be a positive integer");
-        }
-
         customerDAO.addCustomer(customer);
         return Response.status(Response.Status.CREATED).entity(customer).build();
     }
 
-    // Get all customers
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Customer> getAllCustomers() {
         return customerDAO.getAllCustomers();
     }
 
-    // Get customer by ID
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -55,7 +50,6 @@ public class CustomerResources {
         return Response.ok(customer).build();
     }
 
-    // Update an existing customer
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -65,27 +59,23 @@ public class CustomerResources {
         if (existingCustomer == null) {
             throw new CustomerNotFoundException("Customer with ID " + id + " not found");
         }
-
-        // Validate input
-        if (updatedCustomer.getCustomerName() == null || updatedCustomer.getCustomerName().isEmpty()) {
-            throw new InvalidInputException("Customer name cannot be empty");
+        if (updatedCustomer.getFirstName() == null || updatedCustomer.getFirstName().isEmpty()) {
+            throw new InvalidInputException("First name cannot be empty");
+        }
+        if (updatedCustomer.getLastName() == null || updatedCustomer.getLastName().isEmpty()) {
+            throw new InvalidInputException("Last name cannot be empty");
         }
         if (updatedCustomer.getEmailAddress() == null || updatedCustomer.getEmailAddress().isEmpty()) {
             throw new InvalidInputException("Email address cannot be empty");
         }
-        if (!isValidEmail(updatedCustomer.getEmailAddress())) {
-            throw new InvalidInputException("Invalid email address format");
+        if (updatedCustomer.getPassword() == null || updatedCustomer.getPassword().isEmpty()) {
+            throw new InvalidInputException("Password cannot be empty");
         }
-        if (updatedCustomer.getPassword() <= 0) {
-            throw new InvalidInputException("Password must be a positive integer");
-        }
-
         updatedCustomer.setCustomerId(id);
         customerDAO.updateCustomer(updatedCustomer);
         return Response.ok(updatedCustomer).build();
     }
 
-    // Delete a customer
     @DELETE
     @Path("/{id}")
     public Response deleteCustomer(@PathParam("id") int id) {
@@ -95,11 +85,5 @@ public class CustomerResources {
         }
         customerDAO.deleteCustomer(id);
         return Response.status(Response.Status.NO_CONTENT).build();
-    }
-
-    // Helper method to validate email format
-    private boolean isValidEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        return email.matches(emailRegex);
     }
 }
