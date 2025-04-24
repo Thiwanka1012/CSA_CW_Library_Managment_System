@@ -14,7 +14,8 @@ public class Customer {
     
     //Attributes of Customer class
     private int customerId;
-    private String customerName;
+    private String customerFirstName;
+    private String customerLastName;
     private String emailAddress;
     private int password;
 
@@ -23,9 +24,10 @@ public class Customer {
     }
 
     //Parameterized Constructor
-    public Customer(int customerId,String customerName, String emailAddress, int password) {
+    public Customer(int customerId,String customerFirstName,String customerLastName,String emailAddress, int password) {
         this.customerId = customerId;
-        this.customerName = customerName;
+        this.customerFirstName = customerFirstName;
+        this.customerLastName=customerLastName;
         this.emailAddress = emailAddress;
         this.password = password;
     }
@@ -37,9 +39,15 @@ public class Customer {
         return customerId;
     }
     
-    public String getCustomerName() {
-        return customerName;
+    public String getCustomerFirstName() {
+        return customerFirstName;
     }
+
+    public String getCustomerLastName() {
+        return customerLastName;
+    }
+    
+    
 
     public String getEmailAddress() {
         return emailAddress;
@@ -57,9 +65,14 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setCustomerFirstName(String customerFirstName) {
+        this.customerFirstName = customerFirstName;
     }
+
+    public void setCustomerLastName(String customerLastName) {
+        this.customerLastName = customerLastName;
+    }
+    
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
@@ -69,12 +82,13 @@ public class Customer {
         this.password = password;
     }
 
-    //To string method
+    //To String method
     @Override
     public String toString() {
-        return "Customer{" + "customerName=" + customerName + ", emailAddress=" + emailAddress + ", password=" + password + '}';
+        return "Customer{" + "customerId=" + customerId + ", customerFirstName=" + customerFirstName + ", customerLastName=" + customerLastName + ", emailAddress=" + emailAddress + ", password=" + password + '}';
     }
-    
+
+
     
     
 }
