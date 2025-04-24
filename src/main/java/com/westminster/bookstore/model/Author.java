@@ -68,6 +68,7 @@ public class Author {
         this.biography = biography;
     }
 
+    //To String method
     @Override
     public String toString() {
         return "Author{" + "authorId=" + authorId + ", authorFirstName=" + authorFirstName + ", authorLastName=" + authorLastName + ", biography=" + biography + '}';
