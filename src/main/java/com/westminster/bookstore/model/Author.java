@@ -1,85 +1,55 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.westminster.bookstore.model;
 
-/**
- *
- * @author Thiwanka-Gaming
- */
-
-//Add other Attributes
 public class Author {
-    
     private int authorId;
-    private String authorFirstName;
-    private String authorLastName;
+    private String firstName;
+    private String lastName;
     private String biography;
 
-    
-    //Non parameterized constructor
     public Author() {
     }
 
-    //Parameterized Constructor
-    public Author(int authorId, String authorFirstName,String authorLastName,String biography) {
+    public Author(int authorId, String firstName, String lastName, String biography) {
         this.authorId = authorId;
-        this.authorFirstName = authorFirstName;
-        this.authorLastName=authorLastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.biography = biography;
     }
 
-    //Getter methods
     public int getAuthorId() {
         return authorId;
     }
 
-    public String getAuthorFirstName() {
-        return authorFirstName;
-    }
-
-    public String getAuthorLastName() {
-        return authorLastName;
-    }
-    
-    
-
-    public String getBiography() {
-        return biography;
-    }
-    
-    
-    //Setter Methods
     public void setAuthorId(int authorId) {
         this.authorId = authorId;
     }
 
-    public void setAuthorFirstName(String authorFirstName) {
-        this.authorFirstName = authorFirstName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setAuthorLastName(String authorLastName) {
-        this.authorLastName = authorLastName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
-    
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getBiography() {
+        return biography;
+    }
 
     public void setBiography(String biography) {
         this.biography = biography;
     }
 
-    //To String method
     @Override
     public String toString() {
-        return "Author{" + "authorId=" + authorId + ", authorFirstName=" + authorFirstName + ", authorLastName=" + authorLastName + ", biography=" + biography + '}';
+        return "Author{" + "authorId=" + authorId + ", firstName=" + firstName + ", lastName=" + lastName + ", biography=" + biography + '}';
     }
-
-
-    
-    
-    
-    
-    
-    
-    
 }
