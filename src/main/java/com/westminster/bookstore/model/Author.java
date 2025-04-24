@@ -13,7 +13,8 @@ package com.westminster.bookstore.model;
 public class Author {
     
     private int authorId;
-    private String authorName;
+    private String authorFirstName;
+    private String authorLastName;
     private String biography;
 
     
@@ -22,9 +23,10 @@ public class Author {
     }
 
     //Parameterized Constructor
-    public Author(int authorId, String authorName, String biography) {
+    public Author(int authorId, String authorFirstName,String authorLastName,String biography) {
         this.authorId = authorId;
-        this.authorName = authorName;
+        this.authorFirstName = authorFirstName;
+        this.authorLastName=authorLastName;
         this.biography = biography;
     }
 
@@ -33,9 +35,15 @@ public class Author {
         return authorId;
     }
 
-    public String getAuthorName() {
-        return authorName;
+    public String getAuthorFirstName() {
+        return authorFirstName;
     }
+
+    public String getAuthorLastName() {
+        return authorLastName;
+    }
+    
+    
 
     public String getBiography() {
         return biography;
@@ -47,19 +55,25 @@ public class Author {
         this.authorId = authorId;
     }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public void setAuthorFirstName(String authorFirstName) {
+        this.authorFirstName = authorFirstName;
     }
+
+    public void setAuthorLastName(String authorLastName) {
+        this.authorLastName = authorLastName;
+    }
+    
 
     public void setBiography(String biography) {
         this.biography = biography;
     }
 
-    //To string method
     @Override
     public String toString() {
-        return "Author{" + "authorId=" + authorId + ", authorName=" + authorName + ", biography=" + biography + '}';
+        return "Author{" + "authorId=" + authorId + ", authorFirstName=" + authorFirstName + ", authorLastName=" + authorLastName + ", biography=" + biography + '}';
     }
+
+
     
     
     
