@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/customers")
-public class CustomerResource {
+public class CustomerResources {
     private CustomerDAO customerDAO = new CustomerDAO();
 
     // Create a new customer
