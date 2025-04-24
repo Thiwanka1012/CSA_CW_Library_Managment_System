@@ -1,94 +1,65 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.westminster.bookstore.model;
 
-
-
-/**
- *
- * @author Thiwanka-Gaming
- */
 public class Customer {
-    
-    //Attributes of Customer class
     private int customerId;
-    private String customerFirstName;
-    private String customerLastName;
+    private String firstName;
+    private String lastName;
     private String emailAddress;
-    private int password;
+    private String password;
 
-    //Non parameterized constructor
     public Customer() {
     }
 
-    //Parameterized Constructor
-    public Customer(int customerId,String customerFirstName,String customerLastName,String emailAddress, int password) {
+    public Customer(int customerId, String firstName, String lastName, String emailAddress, String password) {
         this.customerId = customerId;
-        this.customerFirstName = customerFirstName;
-        this.customerLastName=customerLastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.password = password;
     }
 
-    
-    //Getter methods
-
     public int getCustomerId() {
         return customerId;
     }
-    
-    public String getCustomerFirstName() {
-        return customerFirstName;
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public String getCustomerLastName() {
-        return customerLastName;
+    public String getFirstName() {
+        return firstName;
     }
-    
-    
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public String getEmailAddress() {
         return emailAddress;
     }
 
-    public int getPassword() {
-        return password;
-    }
-    
-    
-    //Setter Methods
-    
-    
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public void setCustomerFirstName(String customerFirstName) {
-        this.customerFirstName = customerFirstName;
-    }
-
-    public void setCustomerLastName(String customerLastName) {
-        this.customerLastName = customerLastName;
-    }
-    
-
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
-    public void setPassword(int password) {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    //To String method
     @Override
     public String toString() {
-        return "Customer{" + "customerId=" + customerId + ", customerFirstName=" + customerFirstName + ", customerLastName=" + customerLastName + ", emailAddress=" + emailAddress + ", password=" + password + '}';
+        return "Customer{" + "customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName + ", emailAddress=" + emailAddress + ", password=" + password + '}';
     }
-
-
-    
-    
 }
