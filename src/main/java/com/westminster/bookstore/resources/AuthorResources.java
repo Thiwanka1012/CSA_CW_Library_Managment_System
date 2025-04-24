@@ -1,6 +1,6 @@
 package com.westminster.bookstore.resources;
 
-import com.westminster.bookstore.storage.AuthorDAO;
+import com.westminster.bookstore.dao.AuthorDAO;
 import com.westminster.bookstore.model.Author;
 import com.westminster.bookstore.exceptions.AuthorNotFoundException;
 import com.westminster.bookstore.exceptions.InvalidInputException;

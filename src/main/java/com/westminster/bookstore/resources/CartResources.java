@@ -1,6 +1,6 @@
 package com.westminster.bookstore.resources;
 
-import com.westminster.bookstore.storage.CartDAO;
+import com.westminster.bookstore.dao.CartDAO;
 import com.westminster.bookstore.model.Cart;
 import com.westminster.bookstore.exceptions.CartNotFoundException;
 import com.westminster.bookstore.exceptions.InvalidInputException;

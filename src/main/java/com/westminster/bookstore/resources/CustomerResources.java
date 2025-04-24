@@ -1,6 +1,6 @@
 package com.westminster.bookstore.resources;
 
-import com.westminster.bookstore.storage.CustomerDAO;
+import com.westminster.bookstore.dao.CustomerDAO;
 import com.westminster.bookstore.model.Customer;
 import com.westminster.bookstore.exceptions.CustomerNotFoundException;
 import com.westminster.bookstore.exceptions.InvalidInputException;

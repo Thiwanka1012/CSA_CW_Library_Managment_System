@@ -1,6 +1,6 @@
 package com.westminster.bookstore.resources;
 
-import com.westminster.bookstore.storage.OrderDAO;
+import com.westminster.bookstore.dao.OrderDAO;
 import com.westminster.bookstore.model.Order;
 import com.westminster.bookstore.exceptions.OrderNotFoundException;
 import com.westminster.bookstore.exceptions.InvalidInputException;

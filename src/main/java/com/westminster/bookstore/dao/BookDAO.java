@@ -1,4 +1,4 @@
-package com.westminster.bookstore.storage;
+package com.westminster.bookstore.dao;
 
 import com.westminster.bookstore.model.Book;
 import java.util.ArrayList;
