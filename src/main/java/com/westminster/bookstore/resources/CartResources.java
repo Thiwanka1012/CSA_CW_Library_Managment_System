@@ -1,104 +1,121 @@
 package com.westminster.bookstore.resources;
 
+import com.westminster.bookstore.dao.BookDAO;
 import com.westminster.bookstore.dao.CartDAO;
-import com.westminster.bookstore.model.Cart;
+import com.westminster.bookstore.dao.CustomerDAO;
+import com.westminster.bookstore.exceptions.BookNotFoundException;
 import com.westminster.bookstore.exceptions.CartNotFoundException;
+import com.westminster.bookstore.exceptions.CustomerNotFoundException;
 import com.westminster.bookstore.exceptions.InvalidInputException;
+import com.westminster.bookstore.exceptions.OutOfStockException;
+import com.westminster.bookstore.model.Book;
+import com.westminster.bookstore.model.Cart;
+import com.westminster.bookstore.model.CartItem;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
-import java.util.Map;
 
-@Path("/carts")
+@Path("/customers/{customerId}/cart")
 public class CartResources {
     private CartDAO cartDAO = new CartDAO();
+    private CustomerDAO customerDAO = new CustomerDAO();
+    private BookDAO bookDAO = new BookDAO();
 
-    // Create a new cart
     @POST
+    @Path("/items")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createCart(Cart cart) {
-        // Validate input
-        if (cart.getCustomerId() <= 0) {
-            throw new InvalidInputException("Customer ID must be a positive integer");
-        }
-        if (cart.getItem() == null || cart.getItem().isEmpty()) {
-            throw new InvalidInputException("Cart items cannot be empty");
-        }
-        for (Map.Entry<Integer, Integer> entry : cart.getItem().entrySet()) {
-            if (entry.getKey() <= 0 || entry.getValue() <= 0) {
-                throw new InvalidInputException("Book ID and quantity must be positive integers");
-            }
+    public Response addItemToCart(@PathParam("customerId") int customerId, CartItem cartItem) {
+        // Validate customer exists
+        if (customerDAO.getCustomerById(customerId) == null) {
+            throw new CustomerNotFoundException("Customer with ID " + customerId + " not found");
         }
 
-        cartDAO.addCart(cart);
-        return Response.status(Response.Status.CREATED).entity(cart).build();
+        // Validate book exists
+        Book book = bookDAO.getBookById(cartItem.getBookId());
+        if (book == null) {
+            throw new BookNotFoundException("Book with ID " + cartItem.getBookId() + " not found");
+        }
+
+        // Validate quantity
+        if (cartItem.getQuantity() <= 0) {
+            throw new InvalidInputException("Quantity must be greater than zero");
+        }
+
+        // Check stock availability
+        if (book.getStockQuantity() < cartItem.getQuantity()) {
+            throw new OutOfStockException("Requested quantity " + cartItem.getQuantity() + " exceeds available stock for book ID " + cartItem.getBookId());
+        }
+
+        // Add item to cart
+        cartDAO.addItemToCart(customerId, cartItem);
+        return Response.status(Response.Status.CREATED).entity(cartDAO.getCartByCustomerId(customerId)).build();
     }
 
-    // Get all carts
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Cart> getAllCarts() {
-        return cartDAO.getAllCarts();
-    }
-
-    // Get cart by customer ID
-    @GET
-    @Path("/{customerId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getCartByCustomerId(@PathParam("customerId") int customerId) {
-        if (customerId <= 0) {
-            throw new InvalidInputException("Customer ID must be a positive integer");
+    public Response getCart(@PathParam("customerId") int customerId) {
+        // Validate customer exists
+        if (customerDAO.getCustomerById(customerId) == null) {
+            throw new CustomerNotFoundException("Customer with ID " + customerId + " not found");
         }
+
         Cart cart = cartDAO.getCartByCustomerId(customerId);
         if (cart == null) {
-            throw new CartNotFoundException("Cart for customer with ID " + customerId + " not found");
+            throw new CartNotFoundException("Cart for customer ID " + customerId + " not found");
         }
+
         return Response.ok(cart).build();
     }
 
-    // Update an existing cart
     @PUT
-    @Path("/{customerId}")
+    @Path("/items/{bookId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateCart(@PathParam("customerId") int customerId, Cart updatedCart) {
-        if (customerId <= 0) {
-            throw new InvalidInputException("Customer ID must be a positive integer");
-        }
-        Cart existingCart = cartDAO.getCartByCustomerId(customerId);
-        if (existingCart == null) {
-            throw new CartNotFoundException("Cart for customer with ID " + customerId + " not found");
+    public Response updateCartItem(@PathParam("customerId") int customerId, @PathParam("bookId") int bookId, CartItem updatedItem) {
+        // Validate customer exists
+        if (customerDAO.getCustomerById(customerId) == null) {
+            throw new CustomerNotFoundException("Customer with ID " + customerId + " not found");
         }
 
-        // Validate input
-        if (updatedCart.getItem() == null || updatedCart.getItem().isEmpty()) {
-            throw new InvalidInputException("Cart items cannot be empty");
-        }
-        for (Map.Entry<Integer, Integer> entry : updatedCart.getItem().entrySet()) {
-            if (entry.getKey() <= 0 || entry.getValue() <= 0) {
-                throw new InvalidInputException("Book ID and quantity must be positive integers");
-            }
+        // Validate book exists
+        Book book = bookDAO.getBookById(bookId);
+        if (book == null) {
+            throw new BookNotFoundException("Book with ID " + bookId + " not found");
         }
 
-        updatedCart.setCustomerId(customerId);
-        cartDAO.updateCart(updatedCart);
-        return Response.ok(updatedCart).build();
+        // Validate quantity
+        if (updatedItem.getQuantity() <= 0) {
+            throw new InvalidInputException("Quantity must be greater than zero");
+        }
+
+        // Check stock availability
+        if (book.getStockQuantity() < updatedItem.getQuantity()) {
+            throw new OutOfStockException("Requested quantity " + updatedItem.getQuantity() + " exceeds available stock for book ID " + bookId);
+        }
+
+        // Update item in cart
+        updatedItem.setBookId(bookId);
+        cartDAO.updateCartItem(customerId, updatedItem);
+        return Response.ok(cartDAO.getCartByCustomerId(customerId)).build();
     }
 
-    // Delete a cart
     @DELETE
-    @Path("/{customerId}")
-    public Response deleteCart(@PathParam("customerId") int customerId) {
-        if (customerId <= 0) {
-            throw new InvalidInputException("Customer ID must be a positive integer");
+    @Path("/items/{bookId}")
+    public Response removeItemFromCart(@PathParam("customerId") int customerId, @PathParam("bookId") int bookId) {
+        // Validate customer exists
+        if (customerDAO.getCustomerById(customerId) == null) {
+            throw new CustomerNotFoundException("Customer with ID " + customerId + " not found");
         }
-        Cart cart = cartDAO.getCartByCustomerId(customerId);
-        if (cart == null) {
-            throw new CartNotFoundException("Cart for customer with ID " + customerId + " not found");
+
+        // Validate book exists
+        if (bookDAO.getBookById(bookId) == null) {
+            throw new BookNotFoundException("Book with ID " + bookId + " not found");
         }
-        cartDAO.deleteCart(customerId);
+
+        // Remove item from cart
+        cartDAO.removeItemFromCart(customerId, bookId);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 }
