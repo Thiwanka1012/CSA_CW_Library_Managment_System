@@ -1,5 +1,7 @@
 package com.westminster.bookstore.model;
 
+import com.westminster.bookstore.dao.BookDAO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,13 +35,19 @@ public class Cart {
     }
 
     public double getTotalPrice() {
-        // This method assumes you have access to book prices via a BookDAO
-        // For now, we'll return 0.0 as a placeholder
-        return 0.0;
+        BookDAO bookDAO = new BookDAO();
+        double total = 0.0;
+        for (CartItem item : items) {
+            Book book = bookDAO.getBookById(item.getBookId());
+            if (book != null) {
+                total += book.getPrice() * item.getQuantity();
+            }
+        }
+        return total;
     }
 
     @Override
     public String toString() {
-        return "Cart{" + "customerId=" + customerId + ", items=" + items + '}';
+        return "Cart{" + "customerId=" + customerId + ", items=" + items + ", totalPrice=" + getTotalPrice() + '}';
     }
 }

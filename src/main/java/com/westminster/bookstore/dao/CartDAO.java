@@ -9,16 +9,16 @@ import java.util.List;
 public class CartDAO {
     private static List<Cart> carts = new ArrayList<>();
 
-    static {
-        List<CartItem> items1 = new ArrayList<>();
-        items1.add(new CartItem(1, 2)); // Book ID 1, Quantity 2
-        items1.add(new CartItem(2, 1)); // Book ID 2, Quantity 1
-        carts.add(new Cart(1, items1));
-
-        List<CartItem> items2 = new ArrayList<>();
-        items2.add(new CartItem(2, 3)); // Book ID 2, Quantity 3
-        carts.add(new Cart(2, items2));
-    }
+//    static {
+//        List<CartItem> items1 = new ArrayList<>();
+//        items1.add(new CartItem(1, 2)); // Book ID 1, Quantity 2
+//        items1.add(new CartItem(2, 1)); // Book ID 2, Quantity 1
+//        carts.add(new Cart(1, items1));
+//
+//        List<CartItem> items2 = new ArrayList<>();
+//        items2.add(new CartItem(2, 3)); // Book ID 2, Quantity 3
+//        carts.add(new Cart(2, items2));
+//    }
 
     public List<Cart> getAllCarts() {
         return new ArrayList<>(carts);
