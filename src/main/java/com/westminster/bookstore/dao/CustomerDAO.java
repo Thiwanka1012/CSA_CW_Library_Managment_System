@@ -2,40 +2,51 @@ package com.westminster.bookstore.dao;
 
 import com.westminster.bookstore.model.Customer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CustomerDAO {
-    private static List<Customer> customers = new ArrayList<>();
-
-
+    private static Map<Integer, Customer> customers = new HashMap<>();
+    private static int customerIdCounter = 0; // Counter for auto-generating customerId
 
     public List<Customer> getAllCustomers() {
-        return new ArrayList<>(customers);
+        return new ArrayList<>(customers.values());
     }
 
     public Customer getCustomerById(int id) {
-        for (Customer customer : customers) {
-            if (customer.getCustomerId() == id) {
-                return customer;
-            }
-        }
-        return null;
+        return customers.get(id);
     }
 
     public void addCustomer(Customer customer) {
-        customers.add(customer);
+        // Auto-generate customerId if not provided
+        if (customer.getCustomerId() == 0) {
+            customerIdCounter++;
+            customer.setCustomerId(customerIdCounter);
+        } else {
+            // If customerId is provided, ensure it doesn't conflict
+            if (customers.containsKey(customer.getCustomerId())) {
+                throw new IllegalArgumentException("Customer with ID " + customer.getCustomerId() + " already exists.");
+            }
+            // Update counter if the provided ID is greater
+            if (customer.getCustomerId() > customerIdCounter) {
+                customerIdCounter = customer.getCustomerId();
+            }
+        }
+        customers.put(customer.getCustomerId(), customer);
     }
 
     public void updateCustomer(Customer updatedCustomer) {
-        for (int i = 0; i < customers.size(); i++) {
-            if (customers.get(i).getCustomerId() == updatedCustomer.getCustomerId()) {
-                customers.set(i, updatedCustomer);
-                return;
-            }
+        if (!customers.containsKey(updatedCustomer.getCustomerId())) {
+            throw new IllegalArgumentException("Customer with ID " + updatedCustomer.getCustomerId() + " does not exist.");
         }
+        customers.put(updatedCustomer.getCustomerId(), updatedCustomer);
     }
 
     public void deleteCustomer(int id) {
-        customers.removeIf(customer -> customer.getCustomerId() == id);
+        if (!customers.containsKey(id)) {
+            throw new IllegalArgumentException("Customer with ID " + id + " does not exist.");
+        }
+        customers.remove(id);
     }
 }
