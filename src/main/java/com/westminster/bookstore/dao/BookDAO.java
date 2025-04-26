@@ -7,11 +7,6 @@ import java.util.List;
 public class BookDAO {
     private static List<Book> books = new ArrayList<>();
 
-    static {
-        books.add(new Book("1984", 1, 1, "978-0-452-28423-4", 1949, 9.99, 100));
-        books.add(new Book("Harry Potter and the Philosopher's Stone", 2, 2, "978-0-7475-3269-9", 1997, 12.99, 50));
-    }
-
     public List<Book> getAllBooks() {
         return new ArrayList<>(books);
     }
