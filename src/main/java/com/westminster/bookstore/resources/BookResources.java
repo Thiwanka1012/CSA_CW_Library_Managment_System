@@ -35,8 +35,12 @@ public class BookResources {
         if (book.getStockQuantity() < 0) {
             throw new InvalidInputException("Stock quantity cannot be negative");
         }
-        bookDAO.addBook(book);
-        return Response.status(Response.Status.CREATED).entity(book).build();
+        try {
+            bookDAO.addBook(book);
+            return Response.status(Response.Status.CREATED).entity(book).build();
+        } catch (IllegalArgumentException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
 
     @GET
@@ -84,8 +88,12 @@ public class BookResources {
             throw new InvalidInputException("Stock quantity cannot be negative");
         }
         updatedBook.setBookId(id);
-        bookDAO.updateBook(updatedBook);
-        return Response.ok(updatedBook).build();
+        try {
+            bookDAO.updateBook(updatedBook);
+            return Response.ok(updatedBook).build();
+        } catch (IllegalArgumentException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
 
     @DELETE
@@ -95,7 +103,11 @@ public class BookResources {
         if (book == null) {
             throw new BookNotFoundException("Book with ID " + id + " not found");
         }
-        bookDAO.deleteBook(id);
-        return Response.status(Response.Status.NO_CONTENT).build();
+        try {
+            bookDAO.deleteBook(id);
+            return Response.status(Response.Status.NO_CONTENT).build();
+        } catch (IllegalArgumentException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
 }
