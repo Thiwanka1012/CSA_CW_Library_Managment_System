@@ -9,7 +9,7 @@ import java.util.Map;
 public class CartDAO {
     private static List<Cart> carts = new ArrayList<>();
 
-    // Initialize with some sample data
+            // Initialize with some sample data
     static {
         Map<Integer, Integer> items1 = new HashMap<>();
         items1.put(1, 2); // Book ID 1, Quantity 2
@@ -20,6 +20,7 @@ public class CartDAO {
         items2.put(2, 3); // Book ID 2, Quantity 3
         carts.add(new Cart(2, items2));
     }
+
 
     // Get all carts
     public List<Cart> getAllCarts() {
