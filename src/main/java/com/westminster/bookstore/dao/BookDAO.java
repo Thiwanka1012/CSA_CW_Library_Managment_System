@@ -9,9 +9,20 @@ import java.util.Map;
 public class BookDAO {
     private static Map<Integer, Book> books = new HashMap<>();
     private static int bookIdCounter = 0; // Counter for auto-generating bookId
+    private AuthorDAO authorDAO = new AuthorDAO(); // Inject AuthorDAO to validate authorId
 
     public List<Book> getAllBooks() {
         return new ArrayList<>(books.values());
+    }
+
+    public List<Book> getBooksByAuthorId(int authorId) {
+        List<Book> authorBooks = new ArrayList<>();
+        for (Book book : books.values()) {
+            if (book.getAuthorId() == authorId) {
+                authorBooks.add(book);
+            }
+        }
+        return authorBooks;
     }
 
     public Book getBookById(int id) {
@@ -19,6 +30,11 @@ public class BookDAO {
     }
 
     public void addBook(Book book) {
+        // Validate authorId exists in AuthorDAO
+        if (authorDAO.getAuthorById(book.getAuthorId()) == null) {
+            throw new IllegalArgumentException("Author with ID " + book.getAuthorId() + " does not exist.");
+        }
+
         // Auto-generate bookId if not provided
         if (book.getBookId() == 0) {
             bookIdCounter++;
@@ -39,6 +55,10 @@ public class BookDAO {
     public void updateBook(Book updatedBook) {
         if (!books.containsKey(updatedBook.getBookId())) {
             throw new IllegalArgumentException("Book with ID " + updatedBook.getBookId() + " does not exist.");
+        }
+        // Validate authorId exists in AuthorDAO
+        if (authorDAO.getAuthorById(updatedBook.getAuthorId()) == null) {
+            throw new IllegalArgumentException("Author with ID " + updatedBook.getAuthorId() + " does not exist.");
         }
         books.put(updatedBook.getBookId(), updatedBook);
     }
