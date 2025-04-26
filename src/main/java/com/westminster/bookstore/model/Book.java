@@ -12,6 +12,16 @@ public class Book {
     public Book() {
     }
 
+    // Constructor without bookId for auto-generation
+    public Book(String title, int authorId, String isbn, int publicationYear, double price, int stockQuantity) {
+        this.title = title;
+        this.authorId = authorId;
+        this.isbn = isbn;
+        this.publicationYear = publicationYear;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+
     public Book(String title, int bookId, int authorId, String isbn, int publicationYear, double price, int stockQuantity) {
         this.title = title;
         this.bookId = bookId;
