@@ -7,10 +7,7 @@ import java.util.List;
 public class CustomerDAO {
     private static List<Customer> customers = new ArrayList<>();
 
-    static {
-        customers.add(new Customer(1, "John", "Doe", "john.doe@example.com", "password123"));
-        customers.add(new Customer(2, "Jane", "Smith", "jane.smith@example.com", "password456"));
-    }
+
 
     public List<Customer> getAllCustomers() {
         return new ArrayList<>(customers);
