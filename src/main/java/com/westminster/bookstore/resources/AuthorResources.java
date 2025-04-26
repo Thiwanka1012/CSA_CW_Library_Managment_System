@@ -1,7 +1,9 @@
 package com.westminster.bookstore.resources;
 
 import com.westminster.bookstore.dao.AuthorDAO;
+import com.westminster.bookstore.dao.BookDAO;
 import com.westminster.bookstore.model.Author;
+import com.westminster.bookstore.model.Book;
 import com.westminster.bookstore.exceptions.AuthorNotFoundException;
 import com.westminster.bookstore.exceptions.InvalidInputException;
 import javax.ws.rs.*;
@@ -12,6 +14,7 @@ import java.util.List;
 @Path("/authors")
 public class AuthorResources {
     private AuthorDAO authorDAO = new AuthorDAO();
+    private BookDAO bookDAO = new BookDAO(); // Inject BookDAO to get books by author
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -49,6 +52,18 @@ public class AuthorResources {
             throw new AuthorNotFoundException("Author with ID " + id + " not found");
         }
         return Response.ok(author).build();
+    }
+
+    @GET
+    @Path("/{id}/books")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getBooksByAuthorId(@PathParam("id") int id) {
+        Author author = authorDAO.getAuthorById(id);
+        if (author == null) {
+            throw new AuthorNotFoundException("Author with ID " + id + " not found");
+        }
+        List<Book> books = bookDAO.getBooksByAuthorId(id);
+        return Response.ok(books).build();
     }
 
     @PUT
