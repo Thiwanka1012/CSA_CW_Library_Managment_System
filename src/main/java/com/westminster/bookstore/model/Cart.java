@@ -1,59 +1,45 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.westminster.bookstore.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- *
- * @author Thiwanka-Gaming
- */
 public class Cart {
-    
-    //Attributes
     private int customerId;
-    private Map<Integer,Integer> item;
+    private List<CartItem> items;
 
-    //Non parameterized constructor
     public Cart() {
+        this.items = new ArrayList<>();
     }
 
-    //Parameterized constructor
-    public Cart(int customerId, Map<Integer, Integer> item) {
+    public Cart(int customerId, List<CartItem> items) {
         this.customerId = customerId;
-        this.item = item;
+        this.items = items != null ? items : new ArrayList<>();
     }
 
-   //Getter methods
     public int getCustomerId() {
         return customerId;
     }
 
-    public Map<Integer, Integer> getItem() {
-        return item;
-    }
-
-    //Setter methods
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
-    public void setItem(Map<Integer, Integer> item) {
-        this.item = item;
+    public List<CartItem> getItems() {
+        return items;
     }
 
-    //To string method
+    public void setItems(List<CartItem> items) {
+        this.items = items != null ? items : new ArrayList<>();
+    }
+
+    public double getTotalPrice() {
+        // This method assumes you have access to book prices via a BookDAO
+        // For now, we'll return 0.0 as a placeholder
+        return 0.0;
+    }
+
     @Override
     public String toString() {
-        return "Cart{" + "customerId=" + customerId + ", item=" + item + '}';
+        return "Cart{" + "customerId=" + customerId + ", items=" + items + '}';
     }
-    
-    
-    
-    
-    
-    
 }
