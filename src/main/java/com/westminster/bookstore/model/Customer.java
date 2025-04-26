@@ -10,6 +10,14 @@ public class Customer {
     public Customer() {
     }
 
+    // Constructor without customerId for auto-generation
+    public Customer(String firstName, String lastName, String emailAddress, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.password = password;
+    }
+
     public Customer(int customerId, String firstName, String lastName, String emailAddress, String password) {
         this.customerId = customerId;
         this.firstName = firstName;
