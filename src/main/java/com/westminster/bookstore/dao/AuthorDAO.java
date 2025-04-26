@@ -2,43 +2,51 @@ package com.westminster.bookstore.dao;
 
 import com.westminster.bookstore.model.Author;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AuthorDAO {
-    private static List<Author> authors = new ArrayList<>();
-
-    static {
-        authors.add(new Author(1, "George", "Orwell", "Author of 1984 and Animal Farm"));
-        authors.add(new Author(2, "J.K.", "Rowling", "Author of Harry Potter series"));
-    }
+    private static Map<Integer, Author> authors = new HashMap<>();
+    private static int authorIdCounter = 0; // Counter for auto-generating authorId
 
     public List<Author> getAllAuthors() {
-        return new ArrayList<>(authors);
+        return new ArrayList<>(authors.values());
     }
 
     public Author getAuthorById(int id) {
-        for (Author author : authors) {
-            if (author.getAuthorId() == id) {
-                return author;
-            }
-        }
-        return null;
+        return authors.get(id);
     }
 
     public void addAuthor(Author author) {
-        authors.add(author);
+        // Auto-generate authorId if not provided
+        if (author.getAuthorId() == 0) {
+            authorIdCounter++;
+            author.setAuthorId(authorIdCounter);
+        } else {
+            // If authorId is provided, ensure it doesn't conflict
+            if (authors.containsKey(author.getAuthorId())) {
+                throw new IllegalArgumentException("Author with ID " + author.getAuthorId() + " already exists.");
+            }
+            // Update counter if the provided ID is greater
+            if (author.getAuthorId() > authorIdCounter) {
+                authorIdCounter = author.getAuthorId();
+            }
+        }
+        authors.put(author.getAuthorId(), author);
     }
 
     public void updateAuthor(Author updatedAuthor) {
-        for (int i = 0; i < authors.size(); i++) {
-            if (authors.get(i).getAuthorId() == updatedAuthor.getAuthorId()) {
-                authors.set(i, updatedAuthor);
-                return;
-            }
+        if (!authors.containsKey(updatedAuthor.getAuthorId())) {
+            throw new IllegalArgumentException("Author with ID " + updatedAuthor.getAuthorId() + " does not exist.");
         }
+        authors.put(updatedAuthor.getAuthorId(), updatedAuthor);
     }
 
     public void deleteAuthor(int id) {
-        authors.removeIf(author -> author.getAuthorId() == id);
+        if (!authors.containsKey(id)) {
+            throw new IllegalArgumentException("Author with ID " + id + " does not exist.");
+        }
+        authors.remove(id);
     }
 }

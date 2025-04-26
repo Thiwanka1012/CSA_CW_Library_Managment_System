@@ -26,8 +26,12 @@ public class AuthorResources {
         if (author.getBiography() == null || author.getBiography().isEmpty()) {
             throw new InvalidInputException("Biography cannot be empty");
         }
-        authorDAO.addAuthor(author);
-        return Response.status(Response.Status.CREATED).entity(author).build();
+        try {
+            authorDAO.addAuthor(author);
+            return Response.status(Response.Status.CREATED).entity(author).build();
+        } catch (IllegalArgumentException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
 
     @GET
@@ -66,8 +70,12 @@ public class AuthorResources {
             throw new InvalidInputException("Biography cannot be empty");
         }
         updatedAuthor.setAuthorId(id);
-        authorDAO.updateAuthor(updatedAuthor);
-        return Response.ok(updatedAuthor).build();
+        try {
+            authorDAO.updateAuthor(updatedAuthor);
+            return Response.ok(updatedAuthor).build();
+        } catch (IllegalArgumentException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
 
     @DELETE
@@ -77,7 +85,11 @@ public class AuthorResources {
         if (author == null) {
             throw new AuthorNotFoundException("Author with ID " + id + " not found");
         }
-        authorDAO.deleteAuthor(id);
-        return Response.status(Response.Status.NO_CONTENT).build();
+        try {
+            authorDAO.deleteAuthor(id);
+            return Response.status(Response.Status.NO_CONTENT).build();
+        } catch (IllegalArgumentException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
 }

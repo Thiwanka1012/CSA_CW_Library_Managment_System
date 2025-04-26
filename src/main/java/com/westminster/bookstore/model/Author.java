@@ -9,6 +9,13 @@ public class Author {
     public Author() {
     }
 
+    // Constructor without authorId for auto-generation
+    public Author(String firstName, String lastName, String biography) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.biography = biography;
+    }
+
     public Author(int authorId, String firstName, String lastName, String biography) {
         this.authorId = authorId;
         this.firstName = firstName;
