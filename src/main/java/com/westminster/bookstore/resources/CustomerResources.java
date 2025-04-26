@@ -29,8 +29,12 @@ public class CustomerResources {
         if (customer.getPassword() == null || customer.getPassword().isEmpty()) {
             throw new InvalidInputException("Password cannot be empty");
         }
-        customerDAO.addCustomer(customer);
-        return Response.status(Response.Status.CREATED).entity(customer).build();
+        try {
+            customerDAO.addCustomer(customer);
+            return Response.status(Response.Status.CREATED).entity(customer).build();
+        } catch (IllegalArgumentException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
 
     @GET
@@ -72,8 +76,12 @@ public class CustomerResources {
             throw new InvalidInputException("Password cannot be empty");
         }
         updatedCustomer.setCustomerId(id);
-        customerDAO.updateCustomer(updatedCustomer);
-        return Response.ok(updatedCustomer).build();
+        try {
+            customerDAO.updateCustomer(updatedCustomer);
+            return Response.ok(updatedCustomer).build();
+        } catch (IllegalArgumentException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
 
     @DELETE
@@ -83,7 +91,11 @@ public class CustomerResources {
         if (customer == null) {
             throw new CustomerNotFoundException("Customer with ID " + id + " not found");
         }
-        customerDAO.deleteCustomer(id);
-        return Response.status(Response.Status.NO_CONTENT).build();
+        try {
+            customerDAO.deleteCustomer(id);
+            return Response.status(Response.Status.NO_CONTENT).build();
+        } catch (IllegalArgumentException e) {
+            throw new InvalidInputException(e.getMessage());
+        }
     }
 }
