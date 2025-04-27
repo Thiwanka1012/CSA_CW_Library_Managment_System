@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/books")
-public class BookResource {
+public class BookResources {
     private BookDAO bookDAO = new BookDAO();
     private AuthorDAO authorDAO = new AuthorDAO(); // Added to validate authorId
 
