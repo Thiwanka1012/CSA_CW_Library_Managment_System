@@ -28,6 +28,16 @@ public class BookDAO {
         return null;
     }
 
+    public List<Book> getBooksByAuthorId(int authorId) {
+        List<Book> booksByAuthor = new ArrayList<>();
+        for (Book book : books) {
+            if (book.getAuthorId() == authorId) {
+                booksByAuthor.add(book);
+            }
+        }
+        return booksByAuthor;
+    }
+
     public void updateBook(Book updatedBook) {
         for (int i = 0; i < books.size(); i++) {
             if (books.get(i).getBookId() == updatedBook.getBookId()) {
