@@ -1,8 +1,9 @@
 package com.westminster.bookstore.resources;
 
+import com.westminster.bookstore.dao.AuthorDAO;
 import com.westminster.bookstore.dao.BookDAO;
 import com.westminster.bookstore.model.Book;
-import com.westminster.bookstore.exceptions.BookNotFoundException;
+import com.westminster.bookstore.exceptions.AuthorNotFoundException;
 import com.westminster.bookstore.exceptions.InvalidInputException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -10,40 +11,40 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/books")
-public class BookResources {
+public class BookResource {
     private BookDAO bookDAO = new BookDAO();
+    private AuthorDAO authorDAO = new AuthorDAO(); // Added to validate authorId
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createBook(Book book) {
-        // Validate title
+        // Validate input fields
         if (book.getTitle() == null || book.getTitle().isEmpty()) {
-            throw new InvalidInputException("Book title cannot be empty");
+            throw new InvalidInputException("Title cannot be empty");
         }
-        // Validate authorId
         if (book.getAuthorId() <= 0) {
-            throw new InvalidInputException("Author ID must be a positive integer");
+            throw new InvalidInputException("Author ID must be greater than 0");
         }
-        // Validate ISBN
         if (book.getIsbn() == null || book.getIsbn().isEmpty()) {
             throw new InvalidInputException("ISBN cannot be empty");
         }
-        // Validate publicationYear
         if (book.getPublicationYear() <= 0) {
-            throw new InvalidInputException("Publication year must be a positive integer");
+            throw new InvalidInputException("Publication year must be greater than 0");
         }
-        if (book.getPublicationYear() >= 2025) {
-            throw new InvalidInputException("Publication year must be less than 2025");
-        }
-        // Validate price
         if (book.getPrice() <= 0) {
-            throw new InvalidInputException("Price must be greater than zero");
+            throw new InvalidInputException("Price must be greater than 0");
         }
-        // Validate stockQuantity
         if (book.getStockQuantity() < 0) {
             throw new InvalidInputException("Stock quantity cannot be negative");
         }
+
+        // Validate authorId exists
+        if (authorDAO.getAuthorById(book.getAuthorId()) == null) {
+            throw new AuthorNotFoundException("author id does not exist");
+        }
+
+        // Add the book
         bookDAO.addBook(book);
         return Response.status(Response.Status.CREATED).entity(book).build();
     }
@@ -58,9 +59,6 @@ public class BookResources {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBookById(@PathParam("id") int id) {
-        if (id <= 0) {
-            throw new InvalidInputException("Book ID must be a positive integer");
-        }
         Book book = bookDAO.getBookById(id);
         if (book == null) {
             throw new BookNotFoundException("Book with ID " + id + " not found");
@@ -73,40 +71,34 @@ public class BookResources {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateBook(@PathParam("id") int id, Book updatedBook) {
-        if (id <= 0) {
-            throw new InvalidInputException("Book ID must be a positive integer");
-        }
         Book existingBook = bookDAO.getBookById(id);
         if (existingBook == null) {
             throw new BookNotFoundException("Book with ID " + id + " not found");
         }
-        // Validate title
         if (updatedBook.getTitle() == null || updatedBook.getTitle().isEmpty()) {
-            throw new InvalidInputException("Book title cannot be empty");
+            throw new InvalidInputException("Title cannot be empty");
         }
-        // Validate authorId
         if (updatedBook.getAuthorId() <= 0) {
-            throw new InvalidInputException("Author ID must be a positive integer");
+            throw new InvalidInputException("Author ID must be greater than 0");
         }
-        // Validate ISBN
         if (updatedBook.getIsbn() == null || updatedBook.getIsbn().isEmpty()) {
             throw new InvalidInputException("ISBN cannot be empty");
         }
-        // Validate publicationYear
         if (updatedBook.getPublicationYear() <= 0) {
-            throw new InvalidInputException("Publication year must be a positive integer");
+            throw new InvalidInputException("Publication year must be greater than 0");
         }
-        if (updatedBook.getPublicationYear() >= 2025) {
-            throw new InvalidInputException("Publication year must be less than 2025");
-        }
-        // Validate price
         if (updatedBook.getPrice() <= 0) {
-            throw new InvalidInputException("Price must be greater than zero");
+            throw new InvalidInputException("Price must be greater than 0");
         }
-        // Validate stockQuantity
         if (updatedBook.getStockQuantity() < 0) {
             throw new InvalidInputException("Stock quantity cannot be negative");
         }
+
+        // Validate authorId exists
+        if (authorDAO.getAuthorById(updatedBook.getAuthorId()) == null) {
+            throw new AuthorNotFoundException("author id does not exist");
+        }
+
         updatedBook.setBookId(id);
         bookDAO.updateBook(updatedBook);
         return Response.ok(updatedBook).build();
@@ -115,9 +107,6 @@ public class BookResources {
     @DELETE
     @Path("/{id}")
     public Response deleteBook(@PathParam("id") int id) {
-        if (id <= 0) {
-            throw new InvalidInputException("Book ID must be a positive integer");
-        }
         Book book = bookDAO.getBookById(id);
         if (book == null) {
             throw new BookNotFoundException("Book with ID " + id + " not found");
