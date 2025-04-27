@@ -11,16 +11,16 @@ public class OrderDAO {
     private static List<Order> orders = new ArrayList<>();
 
     // Initialize with some sample data
-    static {
-        Map<Integer, Integer> items1 = new HashMap<>();
-        items1.put(1, 2); // Book ID 1, Quantity 2
-        items1.put(2, 1); // Book ID 2, Quantity 1
-        orders.add(new Order(1, 1, items1, 56.97, LocalDateTime.of(2025, 4, 15, 10, 30)));
-
-        Map<Integer, Integer> items2 = new HashMap<>();
-        items2.put(2, 3); // Book ID 2, Quantity 3
-        orders.add(new Order(2, 2, items2, 47.97, LocalDateTime.of(2025, 4, 16, 14, 45)));
-    }
+//    static {
+//        Map<Integer, Integer> items1 = new HashMap<>();
+//        items1.put(1, 2); // Book ID 1, Quantity 2
+//        items1.put(2, 1); // Book ID 2, Quantity 1
+//        orders.add(new Order(1, 1, items1, 56.97, LocalDateTime.of(2025, 4, 15, 10, 30)));
+//
+//        Map<Integer, Integer> items2 = new HashMap<>();
+//        items2.put(2, 3); // Book ID 2, Quantity 3
+//        orders.add(new Order(2, 2, items2, 47.97, LocalDateTime.of(2025, 4, 16, 14, 45)));
+//    }
 
     // Get all orders
     public List<Order> getAllOrders() {

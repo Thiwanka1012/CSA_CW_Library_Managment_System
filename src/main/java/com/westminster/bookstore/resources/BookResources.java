@@ -17,21 +17,30 @@ public class BookResources {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createBook(Book book) {
+        // Validate title
         if (book.getTitle() == null || book.getTitle().isEmpty()) {
             throw new InvalidInputException("Book title cannot be empty");
         }
+        // Validate authorId
         if (book.getAuthorId() <= 0) {
             throw new InvalidInputException("Author ID must be a positive integer");
         }
+        // Validate ISBN
         if (book.getIsbn() == null || book.getIsbn().isEmpty()) {
             throw new InvalidInputException("ISBN cannot be empty");
         }
+        // Validate publicationYear
         if (book.getPublicationYear() <= 0) {
             throw new InvalidInputException("Publication year must be a positive integer");
         }
+        if (book.getPublicationYear() >= 2025) {
+            throw new InvalidInputException("Publication year must be less than 2025");
+        }
+        // Validate price
         if (book.getPrice() <= 0) {
             throw new InvalidInputException("Price must be greater than zero");
         }
+        // Validate stockQuantity
         if (book.getStockQuantity() < 0) {
             throw new InvalidInputException("Stock quantity cannot be negative");
         }
@@ -69,21 +78,30 @@ public class BookResources {
         if (existingBook == null) {
             throw new BookNotFoundException("Book with ID " + id + " not found");
         }
+        // Validate title
         if (updatedBook.getTitle() == null || updatedBook.getTitle().isEmpty()) {
             throw new InvalidInputException("Book title cannot be empty");
         }
+        // Validate authorId
         if (updatedBook.getAuthorId() <= 0) {
             throw new InvalidInputException("Author ID must be a positive integer");
         }
+        // Validate ISBN
         if (updatedBook.getIsbn() == null || updatedBook.getIsbn().isEmpty()) {
             throw new InvalidInputException("ISBN cannot be empty");
         }
+        // Validate publicationYear
         if (updatedBook.getPublicationYear() <= 0) {
             throw new InvalidInputException("Publication year must be a positive integer");
         }
+        if (updatedBook.getPublicationYear() >= 2025) {
+            throw new InvalidInputException("Publication year must be less than 2025");
+        }
+        // Validate price
         if (updatedBook.getPrice() <= 0) {
             throw new InvalidInputException("Price must be greater than zero");
         }
+        // Validate stockQuantity
         if (updatedBook.getStockQuantity() < 0) {
             throw new InvalidInputException("Stock quantity cannot be negative");
         }
