@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class CustomerDAO {
     private static Map<Integer, Customer> customers = new HashMap<>();
-    private static int customerIdCounter = 0; // Counter for auto-generating customerId
+    private static int customerIdCounter = 0;
 
     public List<Customer> getAllCustomers() {
         return new ArrayList<>(customers.values());
@@ -19,16 +19,13 @@ public class CustomerDAO {
     }
 
     public void addCustomer(Customer customer) {
-        // Auto-generate customerId if not provided
         if (customer.getCustomerId() == 0) {
             customerIdCounter++;
             customer.setCustomerId(customerIdCounter);
         } else {
-            // If customerId is provided, ensure it doesn't conflict
             if (customers.containsKey(customer.getCustomerId())) {
                 throw new IllegalArgumentException("Customer with ID " + customer.getCustomerId() + " already exists.");
             }
-            // Update counter if the provided ID is greater
             if (customer.getCustomerId() > customerIdCounter) {
                 customerIdCounter = customer.getCustomerId();
             }
@@ -37,16 +34,10 @@ public class CustomerDAO {
     }
 
     public void updateCustomer(Customer updatedCustomer) {
-        if (!customers.containsKey(updatedCustomer.getCustomerId())) {
-            throw new IllegalArgumentException("Customer with ID " + updatedCustomer.getCustomerId() + " does not exist.");
-        }
         customers.put(updatedCustomer.getCustomerId(), updatedCustomer);
     }
 
     public void deleteCustomer(int id) {
-        if (!customers.containsKey(id)) {
-            throw new IllegalArgumentException("Customer with ID " + id + " does not exist.");
-        }
         customers.remove(id);
     }
 }
