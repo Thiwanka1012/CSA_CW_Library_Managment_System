@@ -1,72 +1,43 @@
 package com.westminster.bookstore.dao;
 
 import com.westminster.bookstore.model.Book;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class BookDAO {
-    private static Map<Integer, Book> books = new HashMap<>();
-    private static int bookIdCounter = 0; // Counter for auto-generating bookId
-    private AuthorDAO authorDAO = new AuthorDAO(); // Inject AuthorDAO to validate authorId
+    private static List<Book> books = new ArrayList<>();
+    private static int nextId = 1;
 
-    public List<Book> getAllBooks() {
-        return new ArrayList<>(books.values());
+    public Book addBook(Book book) {
+        book.setBookId(nextId++);
+        books.add(book);
+        return book;
     }
 
-    public List<Book> getBooksByAuthorId(int authorId) {
-        List<Book> authorBooks = new ArrayList<>();
-        for (Book book : books.values()) {
-            if (book.getAuthorId() == authorId) {
-                authorBooks.add(book);
-            }
-        }
-        return authorBooks;
+    public List<Book> getAllBooks() {
+        return new ArrayList<>(books);
     }
 
     public Book getBookById(int id) {
-        return books.get(id);
-    }
-
-    public void addBook(Book book) {
-        // Validate authorId exists in AuthorDAO
-        if (authorDAO.getAuthorById(book.getAuthorId()) == null) {
-            throw new IllegalArgumentException("Author with ID " + book.getAuthorId() + " does not exist.");
-        }
-
-        // Auto-generate bookId if not provided
-        if (book.getBookId() == 0) {
-            bookIdCounter++;
-            book.setBookId(bookIdCounter);
-        } else {
-            // If bookId is provided, ensure it doesn't conflict
-            if (books.containsKey(book.getBookId())) {
-                throw new IllegalArgumentException("Book with ID " + book.getBookId() + " already exists.");
-            }
-            // Update counter if the provided ID is greater
-            if (book.getBookId() > bookIdCounter) {
-                bookIdCounter = book.getBookId();
+        for (Book book : books) {
+            if (book.getBookId() == id) {
+                return book;
             }
         }
-        books.put(book.getBookId(), book);
+        return null;
     }
 
     public void updateBook(Book updatedBook) {
-        if (!books.containsKey(updatedBook.getBookId())) {
-            throw new IllegalArgumentException("Book with ID " + updatedBook.getBookId() + " does not exist.");
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getBookId() == updatedBook.getBookId()) {
+                books.set(i, updatedBook);
+                return;
+            }
         }
-        // Validate authorId exists in AuthorDAO
-        if (authorDAO.getAuthorById(updatedBook.getAuthorId()) == null) {
-            throw new IllegalArgumentException("Author with ID " + updatedBook.getAuthorId() + " does not exist.");
-        }
-        books.put(updatedBook.getBookId(), updatedBook);
     }
 
     public void deleteBook(int id) {
-        if (!books.containsKey(id)) {
-            throw new IllegalArgumentException("Book with ID " + id + " does not exist.");
-        }
-        books.remove(id);
+        books.removeIf(book -> book.getBookId() == id);
     }
 }
