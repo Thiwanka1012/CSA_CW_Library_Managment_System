@@ -15,6 +15,8 @@ import com.westminster.bookstore.model.CartItem;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
+import java.util.Map;
 
 @Path("/customers/{customerId}/cart")
 public class CartResources {
@@ -50,7 +52,15 @@ public class CartResources {
 
         // Add item to cart
         cartDAO.addItemToCart(customerId, cartItem);
-        return Response.status(Response.Status.CREATED).entity(cartDAO.getCartByCustomerId(customerId)).build();
+        Cart cart = cartDAO.getCartByCustomerId(customerId);
+
+        // Build response with totalPrice
+        Map<String, Object> response = new HashMap<>();
+        response.put("customerId", cart.getCustomerId());
+        response.put("items", cart.getItems());
+        response.put("totalPrice", calculateTotalPrice(cart));
+
+        return Response.status(Response.Status.CREATED).entity(response).build();
     }
 
     @GET
@@ -66,7 +76,13 @@ public class CartResources {
             throw new CartNotFoundException("Cart for customer ID " + customerId + " not found");
         }
 
-        return Response.ok(cart).build();
+        // Build response with totalPrice
+        Map<String, Object> response = new HashMap<>();
+        response.put("customerId", cart.getCustomerId());
+        response.put("items", cart.getItems());
+        response.put("totalPrice", calculateTotalPrice(cart));
+
+        return Response.ok(response).build();
     }
 
     @PUT
@@ -98,7 +114,15 @@ public class CartResources {
         // Update item in cart
         updatedItem.setBookId(bookId);
         cartDAO.updateCartItem(customerId, updatedItem);
-        return Response.ok(cartDAO.getCartByCustomerId(customerId)).build();
+        Cart cart = cartDAO.getCartByCustomerId(customerId);
+
+        // Build response with totalPrice
+        Map<String, Object> response = new HashMap<>();
+        response.put("customerId", cart.getCustomerId());
+        response.put("items", cart.getItems());
+        response.put("totalPrice", calculateTotalPrice(cart));
+
+        return Response.ok(response).build();
     }
 
     @DELETE
@@ -117,5 +141,24 @@ public class CartResources {
         // Remove item from cart
         cartDAO.removeItemFromCart(customerId, bookId);
         return Response.status(Response.Status.NO_CONTENT).build();
+    }
+
+    // Temporary endpoint to clear carts for testing
+    @DELETE
+    @Path("/clear")
+    public Response clearCarts() {
+        cartDAO.clearCarts();
+        return Response.status(Response.Status.NO_CONTENT).build();
+    }
+
+    private double calculateTotalPrice(Cart cart) {
+        double totalPrice = 0.0;
+        for (CartItem item : cart.getItems()) {
+            Book book = bookDAO.getBookById(item.getBookId());
+            if (book != null) {
+                totalPrice += book.getPrice() * item.getQuantity();
+            }
+        }
+        return totalPrice;
     }
 }
