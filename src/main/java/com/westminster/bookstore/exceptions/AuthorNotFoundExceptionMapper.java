@@ -11,8 +11,11 @@ public class AuthorNotFoundExceptionMapper implements ExceptionMapper<AuthorNotF
     @Override
     public Response toResponse(AuthorNotFoundException exception) {
         Map<String, String> error = new HashMap<>();
-        error.put("error", "Author Not Found");
+        error.put("error", "author Not Found");
         error.put("message", exception.getMessage());
-        return Response.status(Response.Status.NOT_FOUND).entity(error).build();
+        return Response.status(Response.Status.NOT_FOUND)
+                .entity(error)
+                .type("application/json")
+                .build();
     }
 }
