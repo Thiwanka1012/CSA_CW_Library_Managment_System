@@ -44,12 +44,8 @@ public class BookResources {
         if (book.getStockQuantity() < 0) {
             throw new InvalidInputException("Stock quantity cannot be negative");
         }
-        try {
-            bookDAO.addBook(book);
-            return Response.status(Response.Status.CREATED).entity(book).build();
-        } catch (IllegalArgumentException e) {
-            throw new InvalidInputException(e.getMessage());
-        }
+        bookDAO.addBook(book);
+        return Response.status(Response.Status.CREATED).entity(book).build();
     }
 
     @GET
@@ -62,6 +58,9 @@ public class BookResources {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBookById(@PathParam("id") int id) {
+        if (id <= 0) {
+            throw new InvalidInputException("Book ID must be a positive integer");
+        }
         Book book = bookDAO.getBookById(id);
         if (book == null) {
             throw new BookNotFoundException("Book with ID " + id + " not found");
@@ -74,6 +73,9 @@ public class BookResources {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateBook(@PathParam("id") int id, Book updatedBook) {
+        if (id <= 0) {
+            throw new InvalidInputException("Book ID must be a positive integer");
+        }
         Book existingBook = bookDAO.getBookById(id);
         if (existingBook == null) {
             throw new BookNotFoundException("Book with ID " + id + " not found");
@@ -106,26 +108,21 @@ public class BookResources {
             throw new InvalidInputException("Stock quantity cannot be negative");
         }
         updatedBook.setBookId(id);
-        try {
-            bookDAO.updateBook(updatedBook);
-            return Response.ok(updatedBook).build();
-        } catch (IllegalArgumentException e) {
-            throw new InvalidInputException(e.getMessage());
-        }
+        bookDAO.updateBook(updatedBook);
+        return Response.ok(updatedBook).build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response deleteBook(@PathParam("id") int id) {
+        if (id <= 0) {
+            throw new InvalidInputException("Book ID must be a positive integer");
+        }
         Book book = bookDAO.getBookById(id);
         if (book == null) {
             throw new BookNotFoundException("Book with ID " + id + " not found");
         }
-        try {
-            bookDAO.deleteBook(id);
-            return Response.status(Response.Status.NO_CONTENT).build();
-        } catch (IllegalArgumentException e) {
-            throw new InvalidInputException(e.getMessage());
-        }
+        bookDAO.deleteBook(id);
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 }
