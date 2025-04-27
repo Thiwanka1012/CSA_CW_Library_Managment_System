@@ -10,7 +10,7 @@ import java.util.Map;
 public class OrderDAO {
     private static List<Order> orders = new ArrayList<>();
 
-    // Initialize with some sample data
+//     Initialize with some sample data
 //    static {
 //        Map<Integer, Integer> items1 = new HashMap<>();
 //        items1.put(1, 2); // Book ID 1, Quantity 2
