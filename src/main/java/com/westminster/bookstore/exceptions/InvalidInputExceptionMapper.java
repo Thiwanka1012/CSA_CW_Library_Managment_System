@@ -13,6 +13,9 @@ public class InvalidInputExceptionMapper implements ExceptionMapper<InvalidInput
         Map<String, String> error = new HashMap<>();
         error.put("error", "Invalid Input");
         error.put("message", exception.getMessage());
-        return Response.status(Response.Status.BAD_REQUEST).entity(error).build();
+        return Response.status(Response.Status.BAD_REQUEST)
+                .entity(error)
+                .type("application/json")
+                .build();
     }
 }
