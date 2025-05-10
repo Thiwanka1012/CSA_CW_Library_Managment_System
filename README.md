@@ -11,11 +11,6 @@ Documentation: A detailed report (w2053207_ThiwankaUmesh_5COSC022C.pdf) with tes
 Technologies: Built using Java with JAX-RS (javax.ws.rs), but uses third-party libraries (Jersey and Jackson) for JSON handling and server implementation. Note: Third-party libraries were used in this version, as their removal was not fully implemented before submission.
 Status: Submitted for coursework evaluation. The project meets functional requirements, but compliance with the rule to avoid third-party libraries (e.g., Jackson, Jersey) is pending review.
 
-Author: Thiwanka Umesh
-
-Group: G-16
-
-Module Leader: Mr. Cassim Farook
 
 How to Run:
 
